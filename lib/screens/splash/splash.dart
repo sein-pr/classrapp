@@ -25,7 +25,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(
+            builder: (context) =>
+                const LoginScreen()), //Change here to navigate to the desired screen after the intro screen
       );
     });
   }

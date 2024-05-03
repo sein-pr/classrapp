@@ -7,38 +7,42 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false, // Disable automatic resize
-      body: Stack(
-        fit: StackFit.expand, // Expand the stack to the full screen
-        children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: AppColors.primaryGradientColor,
+    final screenHeight = MediaQuery.of(context).size.height;
+    final contentHeight = screenHeight - 200; // Adjust the content height
+
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false, // Disable automatic resize
+        body: Stack(
+          fit: StackFit.expand, // Expand the stack to the full screen
+          children: [
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: AppColors.primaryGradientColor,
+                ),
               ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.only(top: 60.0, left: 22),
-              child: Text(
-                "Hello\nLog in",
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              child: const Padding(
+                padding: EdgeInsets.only(top: 60.0, left: 22),
+                child: Text(
+                  "Hello\nLog in",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          Listener(
-            onPointerDown: (_) {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(top: 200.0),
+            Align(
+              alignment: Alignment.bottomCenter,
               child: Container(
+                constraints: BoxConstraints(maxHeight: contentHeight),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
@@ -48,8 +52,8 @@ class LoginScreen extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 18.0, right: 18, top: 24, bottom: 24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                  child: ListView(
+                    shrinkWrap: true,
                     children: [
                       const TextField(
                         decoration: InputDecoration(
@@ -144,8 +148,8 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
