@@ -22,10 +22,10 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       elevation: 0,
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: Colors.white,
       unselectedItemColor: AppColors.primaryGradientColor[0],
-      selectedItemColor: Colors.white,
-      selectedIconTheme: IconThemeData(color: Colors.white),
+      selectedItemColor: Color(0xFF536976),
+      selectedIconTheme: IconThemeData(color: AppColors.primaryColor),
       currentIndex: _selectedItemIndex,
       type: BottomNavigationBarType.fixed,
       onTap: (int index) {

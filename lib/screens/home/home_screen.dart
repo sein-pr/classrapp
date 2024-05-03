@@ -118,14 +118,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Positioned(
-            top: 185,
+            top: 180,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              height: MediaQuery.of(context).size.height - 245,
+              height: MediaQuery.of(context).size.height - 210,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
+                ),
               ),
               child: ListView(
                 children: [
