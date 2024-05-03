@@ -1,4 +1,5 @@
 import 'package:classrapp/screens/auth/login_screen.dart';
+import 'package:classrapp/screens/auth/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:classrapp/screens/home/home_screen.dart';
 import 'package:classrapp/utils/constants.dart';
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+        MaterialPageRoute(builder: (context) => RegisterScreen()),
       );
     });
   }

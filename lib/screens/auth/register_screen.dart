@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RegScreen extends StatelessWidget {
-  const RegScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +13,8 @@ class RegScreen extends StatelessWidget {
               width: double.infinity,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(colors: [
-                  Color(0xffB81736),
-                  Color(0xff281537),
+                        Color(0xFF536976),
+                        Color(0xFF292e49),
                 ]),
               ),
               child: const Padding(
@@ -46,18 +46,18 @@ class RegScreen extends StatelessWidget {
                       const TextField(
                         decoration: InputDecoration(
                             suffixIcon: Icon(Icons.check,color: Colors.grey,),
-                            label: Text('Full Name',style: TextStyle(
+                            label: Text('First Name',style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color:Color(0xffB81736),
+                              color:Color(0xFF292e49),
                             ),)
                         ),
                       ),
                       const TextField(
                         decoration: InputDecoration(
                             suffixIcon: Icon(Icons.check,color: Colors.grey,),
-                            label: Text('Phone or Gmail',style: TextStyle(
+                            label: Text('Last Name',style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color:Color(0xffB81736),
+                              color:Color(0xFF292e49),
                             ),)
                         ),
                       ),
@@ -66,16 +66,16 @@ class RegScreen extends StatelessWidget {
                             suffixIcon: Icon(Icons.visibility_off,color: Colors.grey,),
                             label: Text('Password',style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color:Color(0xffB81736),
+                              color:Color(0xFF292e49),
                             ),)
                         ),
                       ),
                       const TextField(
                         decoration: InputDecoration(
                             suffixIcon: Icon(Icons.visibility_off,color: Colors.grey,),
-                            label: Text('Conform Password',style: TextStyle(
+                            label: Text('Confirm Password',style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color:Color(0xffB81736),
+                              color:Color(0xFF292e49),
                             ),)
                         ),
                       ),
@@ -89,8 +89,8 @@ class RegScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                           gradient: const LinearGradient(
                               colors: [
-                                Color(0xffB81736),
-                                Color(0xff281537),
+                                Color(0xFF536976),
+                                Color(0xFF292e49),
                               ]
                           ),
                         ),
@@ -107,11 +107,11 @@ class RegScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("Don't have account?",style: TextStyle(
+                            Text("Have account?",style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey
                             ),),
-                            Text("Sign up",style: TextStyle(///done login page
+                            Text("Log in",style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 17,
                                 color: Colors.black
