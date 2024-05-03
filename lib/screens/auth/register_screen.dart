@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/app_colors.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -29,10 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Color(0xFF536976),
-                  Color(0xFF292e49),
-                ],
+                colors: AppColors.primaryGradientColor,
               ),
             ),
             child: const Padding(
@@ -78,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               'First Name',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF292e49),
+                                color: AppColors.primaryColor,
                               ),
                             ),
                           ),
@@ -93,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               'Last Name',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF292e49),
+                                color: AppColors.primaryColor,
                               ),
                             ),
                           ),
@@ -108,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               'Password',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF292e49),
+                                color: AppColors.primaryColor,
                               ),
                             ),
                           ),
@@ -123,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               'Confirm Password',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF292e49),
+                                color: AppColors.primaryColor,
                               ),
                             ),
                           ),
@@ -145,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             "Tick the modules you're enrolled in:",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF292e49),
+                              color: AppColors.primaryColor,
                             ),
                           ),
                         ),
@@ -173,10 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             gradient: const LinearGradient(
-                              colors: [
-                                Color(0xFF536976),
-                                Color(0xFF292e49),
-                              ],
+                              colors: AppColors.primaryGradientColor,
                             ),
                           ),
                           child: const Center(

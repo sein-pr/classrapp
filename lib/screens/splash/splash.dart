@@ -5,6 +5,8 @@ import 'package:classrapp/screens/home/home_screen.dart';
 import 'package:classrapp/utils/constants.dart';
 import 'package:classrapp/widgets/splash_loading_indicator.dart';
 
+import '../../utils/app_colors.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -23,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => RegisterScreen()),
+        MaterialPageRoute(builder: (context) => const RegisterScreen()),
       );
     });
   }
@@ -36,10 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
         width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF536976),
-              Color(0xFF292e49),
-            ],
+            colors: AppColors.primaryGradientColor,
           ),
         ),
         child: Stack(
@@ -65,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ],
               ),
             ),
-            Positioned(
+            const Positioned(
               bottom: 32,
               left: 0,
               right: 0,

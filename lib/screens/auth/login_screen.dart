@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/app_colors.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -15,10 +17,7 @@ class LoginScreen extends StatelessWidget {
             width: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Color(0xFF536976),
-                  Color(0xFF292e49),
-                ],
+                colors: AppColors.primaryGradientColor,
               ),
             ),
             child: const Padding(
@@ -77,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                             "Password",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF292e49),
+                              color: AppColors.primaryColor,
                             ),
                           ),
                         ),
@@ -101,10 +100,7 @@ class LoginScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           gradient: const LinearGradient(
-                            colors: [
-                              Color(0xFF536976),
-                              Color(0xFF292e49),
-                            ],
+                            colors: AppColors.primaryGradientColor,
                           ),
                         ),
                         child: const Center(
