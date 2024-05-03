@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SplashLoadingIndicator extends StatefulWidget {
+  const SplashLoadingIndicator({super.key});
+
   @override
   _SplashLoadingIndicatorState createState() => _SplashLoadingIndicatorState();
 }
@@ -49,10 +51,10 @@ class _SplashLoadingIndicatorState extends State<SplashLoadingIndicator>
         builder: (context, child) {
           return Opacity(
             opacity: _opacityAnimation.value,
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).primaryColor,
+                  Colors.white,
                 ),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:classrapp/screens/auth/login_screen.dart';
 import 'package:classrapp/screens/auth/register_screen.dart';
 import 'package:classrapp/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      home: const RegisterScreen(),
+      home: const SplashScreen(),
     );
   }
 }
