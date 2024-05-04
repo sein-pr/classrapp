@@ -3,6 +3,7 @@ import 'package:classrapp/screens/auth/login_screen.dart';
 import 'package:classrapp/screens/auth/register_screen.dart';
 import 'package:classrapp/screens/home/home_screen.dart';
 import 'package:classrapp/utils/constants.dart';
+import 'package:classrapp/screens/attendance_screen.dart';
 import 'package:classrapp/widgets/splash_loading_indicator.dart';
 
 import '../../utils/app_colors.dart';
