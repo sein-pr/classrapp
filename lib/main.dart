@@ -1,9 +1,10 @@
 import 'package:classrapp/screens/auth/login_screen.dart';
 import 'package:classrapp/screens/auth/register_screen.dart';
 import 'package:classrapp/screens/home/home_screen.dart';
-import 'package:classrapp/screens/attendance_screen.dart';
 import 'package:classrapp/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
+
+import 'screens/attendance/attendance_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,7 +57,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       //Change here to navigate to the desired screen
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
