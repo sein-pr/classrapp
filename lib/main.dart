@@ -5,25 +5,24 @@ import 'package:classrapp/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/attendance/attendance_screen.dart';
+import 'screens/Consultation/consultation_booking_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of our application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, //removed the debugg banner
+      debugShowCheckedModeBanner: false,
       title: "ClassrApp",
       theme: ThemeData(
         textTheme: const TextTheme(
@@ -57,7 +56,16 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       //Change here to navigate to the desired screen
-      home: const SplashScreen(),
+      initialRoute: '/splash', // Set the initial route
+      routes: {
+        '/splash': (context) => const SplashScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/attendance': (context) => const AttendanceScreen(),
+        '/book_consultation': (context) =>
+            const ConsultationBookingScreen(), // Add route for consultation booking screen
+      },
     );
   }
 }

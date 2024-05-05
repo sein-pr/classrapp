@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:classrapp/screens/auth/login_screen.dart';
 import 'package:classrapp/screens/auth/register_screen.dart';
 import 'package:classrapp/screens/home/home_screen.dart';
+import 'package:classrapp/screens/Consultation/consultation_booking_screen.dart'; // Import the consultation booking screen
 import 'package:classrapp/utils/constants.dart';
 import 'package:classrapp/widgets/splash_loading_indicator.dart';
 
 import '../../utils/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -27,8 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                const AttendanceScreen()), //Change here to navigate to the desired screen after the intro screen
+          builder: (context) =>
+              const AttendanceScreen(), //Change here to navigate to the desired screen after the intro screen
+        ),
       );
     });
   }
@@ -36,6 +38,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('ClassrAPP'),
+        actions: [
+          IconButton(
+            icon:
+                Icon(Icons.event_note), // Add an icon for booking consultation
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/book_consultation');
+            },
+          ),
+        ],
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
