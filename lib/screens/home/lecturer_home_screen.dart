@@ -5,14 +5,14 @@ import 'package:flutter/widgets.dart';
 
 import '../../widgets/bottom_navigation_bar.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreenLecturer extends StatefulWidget {
+  const HomeScreenLecturer({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreenLecturer> createState() => _HomeScreenLecturerState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenLecturerState extends State<HomeScreenLecturer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hi Vicky",
+                            "Hi Professor",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w900,
@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   buildTitleRow("Today's Classes", 3),
                   const SizedBox(height: 20),
                   buildClassItem(),
-                  buildInactiveClassItem(),
+                  buildClassItem(),
                   buildClassItem(),
                   const SizedBox(
                     height: 25,
@@ -148,9 +148,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        buildAssignItem(3, "Software Engineering", Colors.red),
-                        buildAssignItem(14, "Data Structures", Colors.green),
-                        buildAssignItem(12, "Computer Theories", Colors.green),
+                        buildAssignItem(
+                            3, "Software Engineering", Colors.red, "Cancel"),
+                        buildAssignItem(
+                            14, "Data Structures", Colors.green, "Cancel"),
+                        buildAssignItem(
+                            12, "Computer Theories", Colors.green, "Cancel"),
                       ],
                     ),
                   )
@@ -163,7 +166,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container buildAssignItem(int numDays, String courseTitle, Color color) {
+  Container buildAssignItem(
+      int numDays, String courseTitle, Color color, String buttonText) {
     return Container(
       margin: const EdgeInsets.only(right: 15),
       padding: const EdgeInsets.all(12),
@@ -210,6 +214,26 @@ class _HomeScreenState extends State<HomeScreen> {
               style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              // Add cancel functionality here
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: color,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: Text(
+              buttonText,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -253,200 +277,85 @@ class _HomeScreenState extends State<HomeScreen> {
             width: 1,
             color: Colors.grey.withOpacity(0.5),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width - 160,
-                    child: const Text(
-                      "Data Structures",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 0),
-                  Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  const Text(
-                    "Active",
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width - 160,
+                  child: const Text(
+                    "Data Structures",
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.green,
+                      fontSize: 18,
+                      color: Colors.black,
                     ),
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.location_on,
-                    color: Colors.grey,
-                    size: 20,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width - 160,
-                    child: const Text(
-                      "Venue, Computer Centre",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(introImage),
-                    radius: 10,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Text(
-                    "Mee Kauna",
-                    style: TextStyle(color: Colors.grey, fontSize: 13),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container buildInactiveClassItem() {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 15),
-      padding: const EdgeInsets.all(10),
-      height: 100,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF9F9FB),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "09:00",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.black87,
                 ),
-              ),
-              Text(
-                "AM",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 160,
+                        child: const Text(
+                          "Venue, Computer Centre",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Container(
-            height: 100,
-            width: 1,
-            color: Colors.grey.withOpacity(0.5),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width - 160,
-                    child: const Text(
-                      "Computer Theory",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage(introImage),
+                      radius: 10,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "Mee Kauna",
+                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                    ),
+                    const Spacer(),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add functionality to cancel the class
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryColor,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
+                        "Cancel",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 0),
-                  Container(
-                    height: 10,
-                    width: 10,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(width: 2),
-                  const Text(
-                    "Inactive",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.red,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.location_on,
-                    color: Colors.grey,
-                    size: 20,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width - 160,
-                    child: const Text(
-                      "Venue, Computer Centre",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(introImage),
-                    radius: 10,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Text(
-                    "Mr. Mutuku",
-                    style: TextStyle(color: Colors.grey, fontSize: 13),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
         ],
       ),
@@ -477,9 +386,24 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        const Text(
-          "See All",
-          style: TextStyle(fontSize: 14, color: Color(0xFF3E3993)),
+        Row(
+          children: [
+            const Text(
+              "See All",
+              style: TextStyle(fontSize: 14, color: Color(0xFF3E3993)),
+            ),
+            const SizedBox(width: 10),
+            IconButton(
+              onPressed: () {
+                // Add functionality to navigate to a page with all classes/tasks
+              },
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                size: 18,
+                color: Color(0xFF3E3993),
+              ),
+            ),
+          ],
         ),
       ],
     );

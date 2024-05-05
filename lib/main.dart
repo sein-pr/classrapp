@@ -5,6 +5,7 @@ import 'package:classrapp/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/attendance/attendance_screen.dart';
+import 'screens/home/lecturer_home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,7 +58,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       //Change here to navigate to the desired screen
-      home: const SplashScreen(),
+      home: const HomeScreen(),
     );
   }
 }
