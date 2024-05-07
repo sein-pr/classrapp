@@ -5,6 +5,7 @@ import 'package:classrapp/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/attendance/attendance_screen.dart';
+import 'screens/communication/consultation_booking_screen.dart';
 import 'screens/home/lecturer_home_screen.dart';
 
 void main() {
@@ -34,9 +35,9 @@ class _MyAppState extends State<MyApp> {
             fontWeight: FontWeight.bold,
           ),
           titleMedium: TextStyle(
-            color: Colors.grey,
-            fontSize: 16,
-            fontWeight: FontWeight.w300,
+            color: Colors.black87,
+            fontSize: 14,
+            fontWeight: FontWeight.w900,
           ),
           displayMedium: TextStyle(
             color: Colors.white,
