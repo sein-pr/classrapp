@@ -1,3 +1,4 @@
+//import 'package:classrapp/screens/attendance/attendance_screen.dart';
 import 'package:classrapp/screens/attendance/attendance_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:classrapp/screens/auth/login_screen.dart';
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                const AttendanceScreen()), //Change here to navigate to the desired screen after the intro screen
+                 AttendancePage()), //Change here to navigate to the desired screen after the intro screen
       );
     });
   }
@@ -68,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             const Positioned(
-              bottom: 80,
+              bottom: 32,
               left: 0,
               right: 0,
               child: SplashLoadingIndicator(),
