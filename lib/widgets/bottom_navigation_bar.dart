@@ -1,8 +1,13 @@
+import 'package:classrapp/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
+import '../screens/attendance/attendance_screen.dart';
+import '../screens/communication/chat_screen.dart';
+import '../screens/communication/consultation_booking_screen.dart';
+import '../screens/home/lecturer_home_screen.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
-  const BottomNavigationBarWidget({Key? key}) : super(key: key);
+  const BottomNavigationBarWidget({super.key});
 
   @override
   _BottomNavigationBarWidgetState createState() =>
@@ -11,12 +16,6 @@ class BottomNavigationBarWidget extends StatefulWidget {
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   int _selectedItemIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedItemIndex = 0; // Set the initial selected index to 0 (Home)
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +31,19 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         setState(() {
           _selectedItemIndex = index;
         });
+        _navigateToScreen(index);
       },
-      items: const [
+      items: [
         BottomNavigationBarItem(
           label: "Home",
           icon: Icon(Icons.home),
         ),
         BottomNavigationBarItem(
-          label: "attendence",
+          label: "Attendance",
           icon: Icon(Icons.insert_chart),
         ),
         BottomNavigationBarItem(
-          label: "Assign..",
+          label: "Consultation",
           icon: Icon(Icons.done),
         ),
         BottomNavigationBarItem(
@@ -56,5 +56,41 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         ),
       ],
     );
+  }
+
+  void _navigateToScreen(int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreenLecturer()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AttendanceScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const ConsultationBookingScreen()),
+        );
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+        break;
+      case 4:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ChatScreen()),
+        );
+        break;
+    }
   }
 }
