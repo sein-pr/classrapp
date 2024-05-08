@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../utils/app_colors.dart'; // Import the AppColors class
+import '../../widgets/bottom_navigation_bar.dart'; // Import the BottomNavigationBarWidget
 
 class ConsultationBookingScreen extends StatefulWidget {
   const ConsultationBookingScreen({Key? key}) : super(key: key);
@@ -14,13 +16,16 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context), // Use the same theme as the parent context
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Book Consultation'),
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: AppColors.primaryGradientColor,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
         ),
-        body: Center(
+        child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Card(
@@ -36,7 +41,11 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
                   children: [
                     Text(
                       'Select Lecturer:',
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 8.0),
@@ -51,14 +60,22 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value, textAlign: TextAlign.center),
+                          child: Text(value,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: AppColors.primaryColor,
+                              )),
                         );
                       }).toList(),
                     ),
                     SizedBox(height: 16.0),
                     Text(
                       'Select Time Slot:',
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 8.0),
@@ -76,51 +93,35 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value, textAlign: TextAlign.center),
+                          child: Text(value,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: AppColors.primaryColor,
+                              )),
                         );
                       }).toList(),
                     ),
                     SizedBox(height: 32.0),
                     ElevatedButton(
                       onPressed: () {
-                        // Implement logic to confirm the booking
-                        if (selectedLecturer != null &&
-                            selectedTimeSlot != null) {
-                          // Perform booking confirmation actions
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Booking Confirmation'),
-                                content: Text(
-                                    'You have successfully booked a consultation with $selectedLecturer for $selectedTimeSlot.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        } else {
-                          // Show error message if lecturer or time slot is not selected
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  'Please select a lecturer and a time slot.'),
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        }
+                        // Implement booking logic
                       },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 8.0),
-                        child: Text('Book Consultation',
-                            style: TextStyle(fontSize: 18.0)),
+                        child: Text(
+                          'Book Consultation',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -130,6 +131,7 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBarWidget(),
     );
   }
 }
