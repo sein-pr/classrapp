@@ -1,9 +1,46 @@
+import 'package:classrapp/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import '../../utils/app_colors.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future<void> _login() async {
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (username.isNotEmpty && password.isNotEmpty) {
+      final user = ParseUser(username, password, null);
+      final response = await user.login();
+
+      if (response.success) {
+        // Login successful, navigate to the home screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else {
+        // Login failed, show an error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response.error!.message)),
+        );
+      }
+    } else {
+      // Show an error message if the username or password is empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter your username and password')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +92,9 @@ class LoginScreen extends StatelessWidget {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        controller: _usernameController,
+                        decoration: const InputDecoration(
                           suffixIcon: Icon(
                             Icons.check,
                             color: Colors.grey,
@@ -70,8 +108,10 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        decoration: const InputDecoration(
                           suffixIcon: Icon(
                             Icons.visibility_off,
                             color: Colors.grey,
@@ -89,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                       const Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "Forgot Passoword(Like Alzira)?",
+                          "Forgot Password?",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
@@ -98,22 +138,26 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 70),
-                      Container(
-                        height: 55,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: const LinearGradient(
-                            colors: AppColors.primaryGradientColor,
+                      // Login button
+                      GestureDetector(
+                        onTap: _login,
+                        child: Container(
+                          height: 55,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            gradient: const LinearGradient(
+                              colors: AppColors.primaryGradientColor,
+                            ),
                           ),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Log in",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white,
+                          child: const Center(
+                            child: Text(
+                              "Log in",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
