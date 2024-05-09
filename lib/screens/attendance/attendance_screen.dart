@@ -62,14 +62,14 @@ class _AttendancePageState extends State<AttendancePage> {
                 child: ListView.builder(
                   itemCount: 15,
                   itemBuilder: (BuildContext context, int index) {
-                    final studentName = 'Student ${index + 1}';
+                    final studentName = _getStudentName(index);
                     return ListTile(
                       title: Row(
                         children: [
                           Text(studentName),
                           const Spacer(),
                           ...List.generate(
-                            4,
+                            5,
                             (checkBoxIndex) => Checkbox(
                               value: _attendanceMap[studentName] != null &&
                                   _attendanceMap[studentName]![checkBoxIndex],
@@ -77,7 +77,7 @@ class _AttendancePageState extends State<AttendancePage> {
                                 setState(() {
                                   if (_attendanceMap[studentName] == null) {
                                     _attendanceMap[studentName] =
-                                        List.filled(4, false);
+                                        List.filled(5, false);
                                   }
                                   _attendanceMap[studentName]![checkBoxIndex] =
                                       value ?? false;
@@ -141,5 +141,43 @@ class _AttendancePageState extends State<AttendancePage> {
         _attendanceMap.clear(); // Reset attendance map when date changes
       });
     }
-  }
+  } 
 }
+
+String _getStudentName(int index) {
+    switch (index) {
+      case 0:
+        return 'Alzira Dongua';
+      case 1:
+        return 'Sein Muwana';
+      case 2:
+        return 'Raphael Thikusho';
+      case 3:
+        return 'Victoria Kulula';
+      case 4:
+        return 'Elritz Kaahangoro';
+      case 5:
+        return 'Lahya Matheus';
+      case 6:
+        return 'Michael Pieters';
+      case 7:
+        return 'Olivia Van Wyk';
+      case 8:
+        return 'William Petrus';
+      case 9:
+        return 'Charlotte Louw';
+      case 10:
+        return 'James Peter';
+      case 11:
+        return 'Emily Shilongo';
+      case 12:
+        return 'Daniel Eiseb';
+      case 13:
+        return 'Ava Elias';
+      case 14:
+        return 'Liam Beukes';
+      default:
+        return 'Student ${index + 1}';
+    }
+  }
+
