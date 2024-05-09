@@ -33,7 +33,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         });
         _navigateToScreen(index);
       },
-      items: [
+      items: const [
         BottomNavigationBarItem(
           label: "Home",
           icon: Icon(Icons.home),
@@ -69,7 +69,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const AttendanceScreen()),
+          MaterialPageRoute(builder: (context) => const AttendancePage()),
         );
         break;
       case 2:

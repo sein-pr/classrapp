@@ -3,65 +3,30 @@ import '../../utils/app_colors.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import 'statistics_page.dart';
 
-class AttendanceScreen extends StatefulWidget {
-  const AttendanceScreen({super.key});
+class AttendancePage extends StatefulWidget {
+  const AttendancePage({super.key});
 
   @override
-  _AttendanceScreenState createState() => _AttendanceScreenState();
+  _AttendancePageState createState() => _AttendancePageState();
 }
 
-class _AttendanceScreenState extends State<AttendanceScreen> {
+class _AttendancePageState extends State<AttendancePage> {
   DateTime _selectedDate = DateTime.now();
-  final Map<String, bool> _attendanceMap = {};
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-      builder: (context, child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: AppColors.primaryColor,
-              onPrimary: Colors.white,
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-    if (pickedDate != null && pickedDate != _selectedDate) {
-      setState(() {
-        _selectedDate = pickedDate;
-        _attendanceMap.clear(); // Reset attendance map when date changes
-      });
-    }
-  }
-
-  void _toggleAttendance(String studentName, bool? value) {
-    setState(() {
-      _attendanceMap[studentName] = value ?? false;
-    });
-  }
+  Map<String, List<bool>> _attendanceMap = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: AppColors.primaryGradientColor,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+      backgroundColor: AppColors.primaryColor,
+      bottomNavigationBar: const BottomNavigationBarWidget(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
-            const Text(
-              'Attendance Tracker',
+            const SizedBox(height: 40),
+            Text(
+              'Attendance',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -71,33 +36,28 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             const SizedBox(height: 20),
             Text(
               'Selected Date: ${_selectedDate.toString().substring(0, 10)}',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+              style: TextStyle(
+                fontSize: 16,
                 color: Colors.white,
               ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => _selectDate(context),
+              onPressed: () {
+                _selectDate(context);
+              },
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
                 backgroundColor: AppColors.primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
+                foregroundColor: Colors.white,
               ),
               child: const Text('Select Date'),
             ),
             const SizedBox(height: 20),
             Expanded(
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: ListView.builder(
                   itemCount: 15,
@@ -106,19 +66,25 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     return ListTile(
                       title: Row(
                         children: [
-                          Text(
-                            studentName,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
+                          Text(studentName),
                           const Spacer(),
-                          Checkbox(
-                            value: _attendanceMap[studentName] ?? false,
-                            onChanged: (value) =>
-                                _toggleAttendance(studentName, value),
-                            activeColor: AppColors.primaryColor,
+                          ...List.generate(
+                            4,
+                            (checkBoxIndex) => Checkbox(
+                              value: _attendanceMap[studentName] != null &&
+                                  _attendanceMap[studentName]![checkBoxIndex],
+                              onChanged: (value) {
+                                setState(() {
+                                  if (_attendanceMap[studentName] == null) {
+                                    _attendanceMap[studentName] =
+                                        List.filled(4, false);
+                                  }
+                                  _attendanceMap[studentName]![checkBoxIndex] =
+                                      value ?? false;
+                                });
+                              },
+                              activeColor: AppColors.primaryColor,
+                            ),
                           ),
                         ],
                       ),
@@ -133,27 +99,47 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => StatisticsPage(
+                    builder: (context) => AttendancePercentagePage(
                       attendanceMap: _attendanceMap,
-                      date: _selectedDate,
                     ),
                   ),
                 );
               },
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
                 backgroundColor: AppColors.primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
+                foregroundColor: Colors.white,
               ),
-              child: const Text('View Statistics'),
+              child: const Text('View Attendance Percentage'),
             ),
-            const SizedBox(height: 20),
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavigationBarWidget(),
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.primaryColor,
+              onPrimary: Colors.white,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+        _attendanceMap.clear(); // Reset attendance map when date changes
+      });
+    }
   }
 }

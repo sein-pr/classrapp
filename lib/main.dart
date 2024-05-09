@@ -7,6 +7,7 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
 import 'screens/attendance/attendance_screen.dart';
 import 'screens/communication/chat_screen.dart';
+import 'screens/communication/consultation_booking_screen.dart';
 import 'screens/home/lecturer_home_screen.dart';
 
 void main() async {
@@ -21,19 +22,17 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of our application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, //removed the debugg banner
+      debugShowCheckedModeBanner: false,
       title: "ClassrApp",
       theme: ThemeData(
         textTheme: const TextTheme(
@@ -67,7 +66,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       //Change here to navigate to the desired screen
-      home: LoginScreen(),
+      home: ConsultationBookingScreen(),
     );
   }
 }
