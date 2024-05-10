@@ -11,12 +11,12 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final List<String> modules = [
-    'Mathematics',
-    'Computer Science',
-    'Physics',
-    'Chemistry',
-    'Biology',
-    'English',
+    'Artificial Intelligence',
+    'Distributed Systems',
+    'Numerical Methods and Operations Research',
+    'Wireless and Mobile Computing',
+    'Research Project',
+    'Network System Security',
   ];
   final List<bool> selectedModules = List.generate(6, (_) => false);
   bool isTeacher = false;

@@ -149,7 +149,7 @@ String _getStudentName(int index) {
       case 0:
         return 'Alzira Dongua';
       case 1:
-        return 'Sein Muwana';
+        return 'Prince Sein';
       case 2:
         return 'Raphael Thikusho';
       case 3:

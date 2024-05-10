@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // Login successful, navigate to the home screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
         );
       } else {
         // Login failed, show an error message
@@ -37,7 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       // Show an error message if the username or password is empty
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your username and password')),
+        const SnackBar(
+            content: Text('Please enter your username and password')),
       );
     }
   }
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Padding(
                 padding: EdgeInsets.only(top: 60.0, left: 22),
                 child: Text(
-                  "Hello\nLog in",
+                  "Welcome back,\nLog in",
                   style: TextStyle(
                     fontSize: 30,
                     color: Colors.white,
@@ -88,7 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 18.0, right: 18, top: 24, bottom: 24),
+                  padding: const EdgeInsets.only(
+                      left: 18.0, right: 18, top: 24, bottom: 24),
                   child: ListView(
                     shrinkWrap: true,
                     children: [
@@ -100,10 +102,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.grey,
                           ),
                           label: Text(
-                            "Student no",
+                            "Student no:",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF292e49),
+                              color: AppColors.primaryColor,
+                              fontSize: 18,
                             ),
                           ),
                         ),
@@ -117,11 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.grey,
                           ),
                           label: Text(
-                            "Password",
+                            "Password:",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primaryColor,
-                            ),
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primaryColor,
+                                fontSize: 18),
                           ),
                         ),
                       ),
