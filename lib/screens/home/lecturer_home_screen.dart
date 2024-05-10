@@ -135,8 +135,9 @@ class _HomeScreenLecturerState extends State<HomeScreenLecturer> {
                   buildTitleRow("Today's Classes", 3),
                   const SizedBox(height: 20),
                   buildClassItem(),
-                  buildClassItem(),
-                  buildClassItem(),
+                  buildClassItem1(),
+                  //buildClassItem(),
+                  //buildClassItem(),
                   const SizedBox(
                     height: 25,
                   ),
@@ -149,12 +150,11 @@ class _HomeScreenLecturerState extends State<HomeScreenLecturer> {
                     child: Row(
                       children: [
                         buildAssignItem(
-                            3, "Software Engineering", Colors.red, "Cancel"),
+                            3, "Distibuted Systems", Colors.red, "Cancel"),
                         buildAssignItem(
-                            14, "Data Structures", Colors.green, "Cancel"),
+                            14, "Network Security", Colors.green, "Cancel"),
                         buildAssignItem(
-                            12, "Computer Theories", Colors.green, "Cancel"),
-                            
+                            12, "Network Security", Colors.green, "Cancel"),                         
                       ],
                     ),
                   )
@@ -256,7 +256,7 @@ class _HomeScreenLecturerState extends State<HomeScreenLecturer> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "07:00",
+                "08:30",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -286,7 +286,7 @@ class _HomeScreenLecturerState extends State<HomeScreenLecturer> {
                 Container(
                   width: MediaQuery.of(context).size.width - 160,
                   child: const Text(
-                    "Data Structures",
+                    "Distributed Systems",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 18,
@@ -308,7 +308,7 @@ class _HomeScreenLecturerState extends State<HomeScreenLecturer> {
                       child: Container(
                         width: MediaQuery.of(context).size.width - 160,
                         child: const Text(
-                          "Venue, Computer Centre",
+                          "Venue, Computer Lab 109",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.grey,
@@ -329,7 +329,131 @@ class _HomeScreenLecturerState extends State<HomeScreenLecturer> {
                       width: 5,
                     ),
                     const Text(
-                      "Mee Kauna",
+                      "Mrs Helena Nahum",
+                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                    ),
+                    const Spacer(),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add functionality to cancel the class
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryColor,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
+                        "Cancel",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //Next Module
+   Container buildClassItem1() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      padding: const EdgeInsets.all(10),
+      height: 100,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9F9FB),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "11:30",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.black87,
+                ),
+              ),
+              Text(
+                "AM",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            height: 100,
+            width: 1,
+            color: Colors.grey.withOpacity(0.5),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width - 160,
+                  child: const Text(
+                    "Network Security",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 160,
+                        child: const Text(
+                          "Venue, Computer Lab 108",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage(introImage),
+                      radius: 10,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "Mrs Helena Nahum",
                       style: TextStyle(color: Colors.grey, fontSize: 13),
                     ),
                     const Spacer(),

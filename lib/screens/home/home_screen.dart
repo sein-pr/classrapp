@@ -55,7 +55,7 @@ void deleteContainer(){
                           ),
                         ),
                         TextSpan(
-                          text: " 03 May",
+                          text: " 10 May",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
@@ -149,16 +149,18 @@ void deleteContainer(){
                         child: Text('Update'),),
                   buildClassItem(),
                   
+                  
                  //make invisible 
                   if(containerVisible)Container(
                     child: 
                       buildInactiveClassItem(),
                   ),
+                  buildClassItem2(),
                 
-                  buildClassItem(),
-                  const SizedBox(
-                    height: 25,
-                  ),
+                  //buildClassItem(),
+                 // const SizedBox(
+                  //  height: 25,
+                  //),
                   buildTitleRow("Your Tasks", 4),
                   const SizedBox(
                     height: 20,
@@ -167,9 +169,9 @@ void deleteContainer(){
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        buildAssignItem(3, "Software Engineering", Colors.red),
-                        buildAssignItem(14, "Data Structures", Colors.green),
-                        buildAssignItem(12, "Computer Theories", Colors.green),
+                        buildAssignItem(3, "Numerical Methods", Colors.red),
+                        buildAssignItem(14, "Network Security", Colors.green),
+                        buildAssignItem(12, "Distributed System", Colors.pink),
                       ],
                     ),
                   )
@@ -235,9 +237,6 @@ void deleteContainer(){
   }
 
   Container buildClassItem() {
-
-
-
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(10),
@@ -253,7 +252,7 @@ void deleteContainer(){
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "07:00",
+                "07:30",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -284,7 +283,7 @@ void deleteContainer(){
                   Container(
                     width: MediaQuery.of(context).size.width - 160,
                     child: const Text(
-                      "Data Structures",
+                      "Wireless and Mobile computing",
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 18,
@@ -324,7 +323,7 @@ void deleteContainer(){
                   Container(
                     width: MediaQuery.of(context).size.width - 160,
                     child: const Text(
-                      "Venue, Computer Centre",
+                      "Venue, Computer Lab 108",
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.grey,
@@ -357,6 +356,134 @@ void deleteContainer(){
     
   }
 
+
+  Container buildClassItem2() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      padding: const EdgeInsets.all(10),
+      height: 100,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9F9FB),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "12:30",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.black87,
+                ),
+              ),
+              Text(
+                "PM",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            height: 100,
+            width: 1,
+            color: Colors.grey.withOpacity(0.5),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width - 160,
+                    child: const Text(
+                      "Numerical Methods",
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 0),
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  const Text(
+                    "Active",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.green,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.location_on,
+                    color: Colors.grey,
+                    size: 20,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 160,
+                    child: const Text(
+                      "Venue, Computer Lab E312",
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage(introImage),
+                    radius: 10,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Text(
+                    "Mrs Mukaya",
+                    style: TextStyle(color: Colors.grey, fontSize: 13),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+    
+  }
+
+
+
+
+
+
+
+
   Container buildInactiveClassItem() {
 
     
@@ -375,7 +502,7 @@ void deleteContainer(){
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "09:00",
+                "08:30",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -406,7 +533,7 @@ void deleteContainer(){
                   Container(
                     width: MediaQuery.of(context).size.width - 160,
                     child: const Text(
-                      "Computer Theory",
+                      "Distributed Systems",
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 18,
@@ -446,7 +573,7 @@ void deleteContainer(){
                   Container(
                     width: MediaQuery.of(context).size.width - 160,
                     child: const Text(
-                      "Venue, Computer Centre",
+                      "Venue, Lab 109",
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.grey,
@@ -466,7 +593,7 @@ void deleteContainer(){
                     width: 5,
                   ),
                   const Text(
-                    "Mr. Mutuku",
+                    "Mrs Helena Nahum",
                     style: TextStyle(color: Colors.grey, fontSize: 13),
                   ),
                 ],
