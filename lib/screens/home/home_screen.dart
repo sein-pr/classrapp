@@ -13,6 +13,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+bool containerVisible= true;
+
+void deleteContainer(){
+  setState(() {
+    containerVisible=false;
+  });
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,8 +142,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   buildTitleRow("Today's Classes", 3),
                   const SizedBox(height: 20),
+                  ElevatedButton(
+                        onPressed: () {
+                         deleteContainer();
+                            },
+                        child: Text('Update'),),
                   buildClassItem(),
-                  buildInactiveClassItem(),
+                  
+                 //make invisible 
+                  if(containerVisible)Container(
+                    child: 
+                      buildInactiveClassItem(),
+                  ),
+                
                   buildClassItem(),
                   const SizedBox(
                     height: 25,
@@ -216,6 +235,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Container buildClassItem() {
+
+
+
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(10),
@@ -332,9 +354,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+    
   }
 
   Container buildInactiveClassItem() {
+
+    
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(10),
