@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       //Change here to navigate to the desired screen
-      home: const HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }
