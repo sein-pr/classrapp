@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:io';
 import '../../utils/app_colors.dart';
 
+// Represents a chat message with optional attachment
 class ChatMessage {
   final String message;
   final DateTime sentTimestamp;
@@ -18,11 +18,12 @@ class ChatMessage {
 }
 
 class ChatWidget extends StatefulWidget {
-  const ChatWidget({super.key});
+  const ChatWidget({Key? key}) : super(key: key);
 
   @override
   ChatWidgetState createState() => ChatWidgetState();
 
+  // Static method to add a new message to the chat
   static void addMessage(
     BuildContext context, {
     required String message,
@@ -41,12 +42,14 @@ class ChatWidget extends StatefulWidget {
 }
 
 class ChatWidgetState extends State<ChatWidget> {
+  // Static method to find the state of ChatWidget ancestor
   static ChatWidgetState? of(BuildContext context) {
     return context.findAncestorStateOfType<ChatWidgetState>();
   }
 
   final List<ChatMessage> _messages = [];
 
+  // Adds a new message to the chat
   void addMessage({
     required String message,
     required bool isFromUser,
@@ -64,23 +67,14 @@ class ChatWidgetState extends State<ChatWidget> {
     });
   }
 
-  void _bubbleSort(List<ChatMessage> messages) {
-    int n = messages.length;
-    for (int i = 0; i < n - 1; i++) {
-      for (int j = 0; j < n - i - 1; j++) {
-        if (messages[j].sentTimestamp.isAfter(messages[j + 1].sentTimestamp)) {
-          // Swap elements
-          ChatMessage temp = messages[j];
-          messages[j] = messages[j + 1];
-          messages[j + 1] = temp;
-        }
-      }
-    }
+  // Sorts messages by sentTimestamp using Dart's built-in sort function
+  void _sortByTimestamp(List<ChatMessage> messages) {
+    messages.sort((a, b) => a.sentTimestamp.compareTo(b.sentTimestamp));
   }
 
   @override
   Widget build(BuildContext context) {
-    _bubbleSort(_messages);
+    _sortByTimestamp(_messages); // Sort messages by timestamp
 
     return ListView.builder(
       itemCount: _messages.length,
@@ -101,6 +95,7 @@ class ChatWidgetState extends State<ChatWidget> {
         final messageText = message.message;
         int currentIndex = 0;
 
+        // Detect and style emojis within the message
         for (int i = 0; i < messageText.length; i++) {
           if (isEmoji(messageText[i])) {
             if (i > currentIndex) {
@@ -124,6 +119,7 @@ class ChatWidgetState extends State<ChatWidget> {
           }
         }
 
+        // Add remaining text after the last detected emoji
         if (currentIndex < messageText.length) {
           messageTextSpans.add(
             TextSpan(
@@ -133,6 +129,7 @@ class ChatWidgetState extends State<ChatWidget> {
           );
         }
 
+        // Build and return the message UI based on sender
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(
@@ -232,6 +229,7 @@ class ChatWidgetState extends State<ChatWidget> {
     );
   }
 
+  // Function to detect emojis
   bool isEmoji(String character) {
     // Check if the character is an emoji
     return character.codeUnitAt(0) > 0x1F000;

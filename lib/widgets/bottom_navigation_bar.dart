@@ -66,7 +66,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreenLecturer()),
+          MaterialPageRoute(builder: (context) => HomeScreen(userName: widget.userName, idno: widget.idno)),
         );
         break;
       case 1:

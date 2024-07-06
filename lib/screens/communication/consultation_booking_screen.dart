@@ -13,13 +13,14 @@ class ConsultationBookingScreen extends StatefulWidget {
 
 class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
   String? selectedLecturer;
-  String? selectedTimeSlot;
+  DateTime? selectedDate;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      bottomNavigationBar: BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
+      bottomNavigationBar:
+          BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -58,7 +59,7 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
                     children: [
                       Text(
                         'Select Lecturer:',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme.of(context).textTheme.subtitle1,
                         textAlign: TextAlign.start,
                       ),
                       const SizedBox(height: 8.0),
@@ -76,41 +77,42 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value, textAlign: TextAlign.center),
+                            child: Text(value),
                           );
                         }).toList(),
                       ),
                       const SizedBox(height: 16.0),
                       Text(
-                        'Select Time Slot:',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        'Select Date:',
+                        style: Theme.of(context).textTheme.subtitle1,
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8.0),
-                      DropdownButton<String>(
-                        value: selectedTimeSlot,
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedTimeSlot = newValue!;
-                          });
+                      ElevatedButton(
+                        onPressed: () {
+                          _selectDate(context);
                         },
-                        items: <String>[
-                          '9:00 AM - 10:00 AM',
-                          '10:00 AM - 11:00 AM',
-                          '11:00 AM - 12:00 PM'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value, textAlign: TextAlign.center),
-                          );
-                        }).toList(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 8.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                        ),
+                        child: Text(
+                          selectedDate == null
+                              ? 'Select Date'
+                              : '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}',
+                          style: const TextStyle(fontSize: 18.0),
+                        ),
                       ),
                       const SizedBox(height: 32.0),
                       ElevatedButton(
                         onPressed: () {
                           // Implement logic to confirm the booking
                           if (selectedLecturer != null &&
-                              selectedTimeSlot != null) {
+                              selectedDate != null) {
                             // Perform booking confirmation actions
                             showDialog(
                               context: context,
@@ -118,7 +120,8 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
                                 return AlertDialog(
                                   title: const Text('Booking Confirmation'),
                                   content: Text(
-                                      'You have successfully booked a consultation with $selectedLecturer for $selectedTimeSlot.'),
+                                    'You have successfully booked a consultation with $selectedLecturer on ${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}.',
+                                  ),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
@@ -131,34 +134,35 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
                               },
                             );
                           } else {
-                            // Show error message if lecturer or time slot is not selected
+                            // Show error message if lecturer or date is not selected
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Center(
-                                  child: Text(
-                                    'Please select a lecturer and a time slot.',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
+                                content: Text(
+                                  'Please select a lecturer and a date.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
                                   ),
                                 ),
-                                duration: Duration(seconds: 2),
+                                duration: const Duration(seconds: 2),
+                                backgroundColor: Colors.red,
                               ),
                             );
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryColor,
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 255, 255),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 8.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                         ),
-                        child: const Text('Book Consultation',
-                            style:
-                                TextStyle(fontSize: 18.0, color: Colors.white)),
+                        child: const Text(
+                          'Book Consultation',
+                          style: TextStyle(fontSize: 18.0),
+                        ),
                       ),
                     ],
                   ),
@@ -169,5 +173,26 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now()
+          .add(const Duration(days: 30)), // Limit to 30 days from now
+      selectableDayPredicate: (DateTime date) {
+        // Disable weekends (Saturday and Sunday)
+        return date.weekday != DateTime.saturday &&
+            date.weekday != DateTime.sunday;
+      },
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
   }
 }

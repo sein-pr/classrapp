@@ -1,7 +1,6 @@
 import 'package:classrapp/utils/app_colors.dart';
 import 'package:classrapp/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../widgets/bottom_navigation_bar.dart';
 
