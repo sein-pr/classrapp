@@ -6,7 +6,7 @@ import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/chat_widget.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({Key? key}) : super(key: key);
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -15,17 +15,20 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   File? _attachment;
-  final _chatWidgetKey = GlobalKey<ChatWidgetState>();
+  final GlobalKey<ChatWidgetState> _chatWidgetKey =
+      GlobalKey<ChatWidgetState>();
 
   void _sendMessage() {
-    if (_messageController.text.trim().isNotEmpty) {
+    if (_messageController.text.trim().isNotEmpty || _attachment != null) {
       _chatWidgetKey.currentState?.addMessage(
         message: _messageController.text.trim(),
         isFromUser: true,
         attachment: _attachment,
       );
       _messageController.clear();
-      _attachment = null;
+      setState(() {
+        _attachment = null;
+      });
     }
   }
 
@@ -110,7 +113,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     ElevatedButton(
                       onPressed: _sendMessage,
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
                         backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
@@ -126,7 +128,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     ElevatedButton(
                       onPressed: _pickImage,
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
                         backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
@@ -145,7 +146,8 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
+      bottomNavigationBar:
+          BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
     );
   }
 }

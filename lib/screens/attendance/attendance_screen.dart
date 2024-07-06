@@ -4,7 +4,7 @@ import '../../widgets/bottom_navigation_bar.dart';
 import 'statistics_page.dart';
 
 class AttendancePage extends StatefulWidget {
-  const AttendancePage({super.key});
+  const AttendancePage({Key? key}) : super(key: key);
 
   @override
   _AttendancePageState createState() => _AttendancePageState();
@@ -18,7 +18,10 @@ class _AttendancePageState extends State<AttendancePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      bottomNavigationBar: const BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
+      bottomNavigationBar: const BottomNavigationBarWidget(
+        userName: 'YourUserName',
+        idno: 'YourIdNo',
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -60,7 +63,7 @@ class _AttendancePageState extends State<AttendancePage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: ListView.builder(
-                  itemCount: 15,
+                  itemCount: _getStudentCount(),
                   itemBuilder: (BuildContext context, int index) {
                     final studentName = _getStudentName(index);
                     return ListTile(
@@ -141,10 +144,13 @@ class _AttendancePageState extends State<AttendancePage> {
         _attendanceMap.clear(); // Reset attendance map when date changes
       });
     }
-  } 
-}
+  }
 
-String _getStudentName(int index) {
+  int _getStudentCount() {
+    return 15; // Number of students to display, adjust as needed
+  }
+
+  String _getStudentName(int index) {
     switch (index) {
       case 0:
         return 'Alzira Dongua';
@@ -180,4 +186,4 @@ String _getStudentName(int index) {
         return 'Student ${index + 1}';
     }
   }
-
+}

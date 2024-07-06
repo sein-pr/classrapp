@@ -3,6 +3,7 @@ import 'package:classrapp/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
+import 'screens/attendance/attendance_screen.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/register_screen.dart';
 import 'screens/communication/consultation_booking_screen.dart';
@@ -63,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       //Change here to navigate to the desired screen
-      home: const ConsultationBookingScreen(),
+      home: const AttendancePage(),
     );
   }
 }
