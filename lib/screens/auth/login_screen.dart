@@ -13,56 +13,60 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isPasswordVisible = false; // Variable to toggle password visibility
+  bool _isUsernameValid = false; // Variable to track if the username is entered
 
   Future<void> _login() async {
-  final idno = _usernameController.text.trim();
-  final password = _passwordController.text.trim();
+    final idno = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
 
-  if (idno.isNotEmpty && password.isNotEmpty) {
-    // Create a query to retrieve the user from the "Users" class
-    final query = QueryBuilder<ParseObject>(ParseObject('users'))
-      ..whereEqualTo('idno', int.parse(idno))
-      ..whereEqualTo('password', password);
+    if (idno.isNotEmpty && password.isNotEmpty) {
+      // Create a query to retrieve the user from the "users" class
+      final query = QueryBuilder<ParseObject>(ParseObject('users'))
+        ..whereEqualTo('idno', int.parse(idno))
+        ..whereEqualTo('password', password);
 
-    final response = await query.query();
+      final response = await query.query();
 
-    if (response.success && response.results != null && response.results!.isNotEmpty) {
-      // Login successful, navigate to the home screen
-      final user = response.results!.first as ParseObject;
-      print('Logged in user: $user');
+      if (response.success &&
+          response.results != null &&
+          response.results!.isNotEmpty) {
+        // Login successful, navigate to the home screen
+        final user = response.results!.first as ParseObject;
+        print('Logged in user: $user');
 
-      // Navigate to the HomeScreen and pass the user data as constructor arguments
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(
-            userName: user.get<String>('name') ?? '',
-            idno: user.get<int>('idno')?.toString() ?? '',
+        // Navigate to the HomeScreen and pass the user data as constructor arguments
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(
+              userName: user.get<String>('name') ?? '',
+              idno: user.get<int>('idno')?.toString() ?? '',
+            ),
           ),
-        ),
-      );
-    } else {
-      // Login failed, show an error message
-      if (response.error != null) {
-        print('Login error: ${response.error!.message}');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(response.error!.message)),
         );
       } else {
-        print('Login failed, no user found');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid student number or password')),
-        );
+        // Login failed, show an error message
+        if (response.error != null) {
+          print('Login error: ${response.error!.message}');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(response.error!.message)),
+          );
+        } else {
+          print('Login failed, no user found');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Invalid student number or password')),
+          );
+        }
       }
+    } else {
+      // Show an error message if the idno or password is empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Please enter your student number and password')),
+      );
     }
-  } else {
-    // Show an error message if the idno or password is empty
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Please enter your student number and password')),
-    );
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -121,12 +125,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       TextField(
                         controller: _usernameController,
-                        decoration: const InputDecoration(
+                        onChanged: (text) {
+                          setState(() {
+                            _isUsernameValid = text.isNotEmpty;
+                          });
+                        },
+                        decoration: InputDecoration(
                           suffixIcon: Icon(
                             Icons.check,
-                            color: Colors.grey,
+                            color:
+                                _isUsernameValid ? Colors.green : Colors.grey,
                           ),
-                          label: Text(
+                          label: const Text(
                             "Username:",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -138,13 +148,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextField(
                         controller: _passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.visibility_off,
-                            color: Colors.grey,
+                        obscureText:
+                            !_isPasswordVisible, // Use the state variable here
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.grey,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordVisible = !_isPasswordVisible;
+                              });
+                            },
                           ),
-                          label: Text(
+                          label: const Text(
                             "Password:",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
