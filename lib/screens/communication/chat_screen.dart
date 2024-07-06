@@ -1,10 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart' as image_picker;
+import 'dart:io';
 import '../../utils/app_colors.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 import '../../widgets/chat_widget.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
+
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final TextEditingController _messageController = TextEditingController();
+  File? _attachment;
+  final _chatWidgetKey = GlobalKey<ChatWidgetState>();
+
+  void _sendMessage() {
+    if (_messageController.text.trim().isNotEmpty) {
+      _chatWidgetKey.currentState?.addMessage(
+        message: _messageController.text.trim(),
+        isFromUser: true,
+        attachment: _attachment,
+      );
+      _messageController.clear();
+      _attachment = null;
+    }
+  }
+
+  void _pickImage() async {
+    final pickedFile = await image_picker.ImagePicker()
+        .pickImage(source: image_picker.ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _attachment = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +52,28 @@ class ChatScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(height: 50.0),
-            const Text(
-              'Classroom Communications',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            GestureDetector(
+              onTap: () {
+                // Navigate to classroom information screen
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: const Text(
+                  'Classroom Communications',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: 20.0),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: ChatWidget(),
+                child: ChatWidget(
+                  key: _chatWidgetKey,
+                ),
               ),
             ),
             Container(
@@ -49,6 +90,7 @@ class ChatScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: _messageController,
                         decoration: InputDecoration(
                           hintText: 'Type your message',
                           filled: true,
@@ -57,48 +99,44 @@ class ChatScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30.0),
                             borderSide: BorderSide.none,
                           ),
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                             vertical: 12.0,
                             horizontal: 16.0,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     ElevatedButton(
-                      onPressed: () {
-                        // Add your send message logic here
-                      },
+                      onPressed: _sendMessage,
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 12.0,
                           horizontal: 16.0,
                         ),
                       ),
-                      child: Icon(Icons.send),
+                      child: const Icon(Icons.send),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     ElevatedButton(
-                      onPressed: () {
-                        // Add your image upload logic here
-                      },
+                      onPressed: _pickImage,
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 12.0,
                           horizontal: 16.0,
                         ),
                       ),
-                      child: Icon(Icons.attach_file),
+                      child: const Icon(Icons.attach_file),
                     ),
                   ],
                 ),
@@ -107,7 +145,7 @@ class ChatScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(),
+      bottomNavigationBar: BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
     );
   }
 }

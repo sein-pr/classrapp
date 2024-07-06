@@ -18,7 +18,7 @@ class _AttendancePageState extends State<AttendancePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      bottomNavigationBar: const BottomNavigationBarWidget(),
+      bottomNavigationBar: const BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

@@ -6,25 +6,19 @@ import 'package:flutter/widgets.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String userName;
+  final String idno;
+
+  const HomeScreen({super.key, required this.userName, required this.idno});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
-
 class _HomeScreenState extends State<HomeScreen> {
-bool containerVisible= true;
-
-void deleteContainer(){
-  setState(() {
-    containerVisible=false;
-  });
-}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(),
+      bottomNavigationBar: BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
       body: Stack(
         children: [
           Container(
@@ -47,6 +41,7 @@ void deleteContainer(){
                     text: const TextSpan(
                       children: [
                         TextSpan(
+                          ///Showing cuurent day of the week
                           text: "Tue",
                           style: TextStyle(
                             color: Colors.white,
@@ -55,6 +50,7 @@ void deleteContainer(){
                           ),
                         ),
                         TextSpan(
+                          ///Showing current data, which is just the day and Month
                           text: " 10 May",
                           style: TextStyle(
                             color: Colors.white,
@@ -95,22 +91,24 @@ void deleteContainer(){
                       ),
                     ),
                     const SizedBox(width: 20),
-                    const Padding(
+                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          ///Displaying logged users's first name
                           Text(
-                            "Hi Vicky",
+                             "Hi ${widget.userName}",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w900,
                               color: Colors.white,
                             ),
                           ),
+                          ///Displaying logged in users idno
                           SizedBox(height: 10),
                           Text(
-                            "123456789",
+                            widget.idno,
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.white,
@@ -140,27 +138,17 @@ void deleteContainer(){
               ),
               child: ListView(
                 children: [
+                  ///Showing available classes for that day
                   buildTitleRow("Today's Classes", 3),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                        onPressed: () {
-                         deleteContainer();
-                            },
-                        child: Text('Update'),),
+                  SizedBox(height: 20),
                   buildClassItem(),
-                  
-                  
-                 //make invisible 
-                  if(containerVisible)Container(
-                    child: 
-                      buildInactiveClassItem(),
+                  buildInactiveClassItem(),
+                  buildClassItem(),
+                  const SizedBox(
+                    height: 25,
                   ),
-                  buildClassItem2(),
-                
-                  //buildClassItem(),
-                 // const SizedBox(
-                  //  height: 25,
-                  //),
+
+                  ///Showing available assignments
                   buildTitleRow("Your Tasks", 4),
                   const SizedBox(
                     height: 20,
@@ -353,9 +341,7 @@ void deleteContainer(){
         ],
       ),
     );
-    
   }
-
 
   Container buildClassItem2() {
     return Container(
@@ -474,19 +460,9 @@ void deleteContainer(){
         ],
       ),
     );
-    
   }
 
-
-
-
-
-
-
-
   Container buildInactiveClassItem() {
-
-    
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(10),

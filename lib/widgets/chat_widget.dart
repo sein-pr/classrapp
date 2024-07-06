@@ -1,43 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:io';
 import '../../utils/app_colors.dart';
 
 class ChatMessage {
   final String message;
-  final DateTime timestamp;
+  final DateTime sentTimestamp;
   final bool isFromUser;
+  final File? attachment;
 
   ChatMessage({
     required this.message,
-    required this.timestamp,
+    required this.sentTimestamp,
     required this.isFromUser,
+    this.attachment,
   });
 }
 
-class ChatWidget extends StatelessWidget {
-  final List<ChatMessage> _messages = [
-    ChatMessage(
-      message: 'This is a sample message from the user. 😀',
-      timestamp: DateTime.now().subtract(Duration(minutes: 5)),
-      isFromUser: true,
-    ),
-    ChatMessage(
-      message: 'This is a sample message from the teacher. 🤔',
-      timestamp: DateTime.now().subtract(Duration(minutes: 2)),
-      isFromUser: false,
-    ),
-    ChatMessage(
-      message: 'Another sample message from the user. 🎉',
-      timestamp: DateTime.now(),
-      isFromUser: true,
-    ),
-  ];
+class ChatWidget extends StatefulWidget {
+  const ChatWidget({super.key});
+
+  @override
+  ChatWidgetState createState() => ChatWidgetState();
+
+  static void addMessage(
+    BuildContext context, {
+    required String message,
+    required bool isFromUser,
+    File? attachment,
+  }) {
+    ChatWidgetState? state = ChatWidgetState.of(context);
+    if (state != null) {
+      state.addMessage(
+        message: message,
+        isFromUser: isFromUser,
+        attachment: attachment,
+      );
+    }
+  }
+}
+
+class ChatWidgetState extends State<ChatWidget> {
+  static ChatWidgetState? of(BuildContext context) {
+    return context.findAncestorStateOfType<ChatWidgetState>();
+  }
+
+  final List<ChatMessage> _messages = [];
+
+  void addMessage({
+    required String message,
+    required bool isFromUser,
+    File? attachment,
+  }) {
+    setState(() {
+      _messages.add(
+        ChatMessage(
+          message: message,
+          sentTimestamp: DateTime.now(),
+          isFromUser: isFromUser,
+          attachment: attachment,
+        ),
+      );
+    });
+  }
 
   void _bubbleSort(List<ChatMessage> messages) {
     int n = messages.length;
     for (int i = 0; i < n - 1; i++) {
       for (int j = 0; j < n - i - 1; j++) {
-        if (messages[j].timestamp.isAfter(messages[j + 1].timestamp)) {
+        if (messages[j].sentTimestamp.isAfter(messages[j + 1].sentTimestamp)) {
           // Swap elements
           ChatMessage temp = messages[j];
           messages[j] = messages[j + 1];
@@ -112,10 +143,10 @@ class ChatWidget extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Container(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       decoration: BoxDecoration(
                         color: AppColors.primaryColor,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20.0),
                           topRight: Radius.circular(20.0),
                           bottomLeft: Radius.circular(20.0),
@@ -129,9 +160,22 @@ class ChatWidget extends StatelessWidget {
                               children: messageTextSpans,
                             ),
                           ),
-                          SizedBox(height: 4.0),
+                          if (message.attachment != null)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12.0),
+                                child: Image.file(
+                                  message.attachment!,
+                                  width: 150.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          const SizedBox(height: 4.0),
                           Text(
-                            '${message.timestamp.hour}:${message.timestamp.minute}',
+                            '${message.sentTimestamp.hour}:${message.sentTimestamp.minute}',
                             style: timeTextStyle,
                           ),
                         ],
@@ -142,10 +186,10 @@ class ChatWidget extends StatelessWidget {
               if (!message.isFromUser)
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
@@ -159,9 +203,22 @@ class ChatWidget extends StatelessWidget {
                             children: messageTextSpans,
                           ),
                         ),
-                        SizedBox(height: 4.0),
+                        if (message.attachment != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12.0),
+                              child: Image.file(
+                                message.attachment!,
+                                width: 150.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        const SizedBox(height: 4.0),
                         Text(
-                          '${message.timestamp.hour}:${message.timestamp.minute}',
+                          '${message.sentTimestamp.hour}:${message.sentTimestamp.minute}',
                           style: timeTextStyle,
                         ),
                       ],

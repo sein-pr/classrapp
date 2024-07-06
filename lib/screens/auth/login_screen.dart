@@ -15,33 +15,54 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   Future<void> _login() async {
-    final username = _usernameController.text.trim();
-    final password = _passwordController.text.trim();
+  final idno = _usernameController.text.trim();
+  final password = _passwordController.text.trim();
 
-    if (username.isNotEmpty && password.isNotEmpty) {
-      final user = ParseUser(username, password, null);
-      final response = await user.login();
+  if (idno.isNotEmpty && password.isNotEmpty) {
+    // Create a query to retrieve the user from the "Users" class
+    final query = QueryBuilder<ParseObject>(ParseObject('users'))
+      ..whereEqualTo('idno', int.parse(idno))
+      ..whereEqualTo('password', password);
 
-      if (response.success) {
-        // Login successful, navigate to the home screen
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
+    final response = await query.query();
+
+    if (response.success && response.results != null && response.results!.isNotEmpty) {
+      // Login successful, navigate to the home screen
+      final user = response.results!.first as ParseObject;
+      print('Logged in user: $user');
+
+      // Navigate to the HomeScreen and pass the user data as constructor arguments
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(
+            userName: user.get<String>('name') ?? '',
+            idno: user.get<int>('idno')?.toString() ?? '',
+          ),
+        ),
+      );
+    } else {
+      // Login failed, show an error message
+      if (response.error != null) {
+        print('Login error: ${response.error!.message}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response.error!.message)),
         );
       } else {
-        // Login failed, show an error message
+        print('Login failed, no user found');
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Incorrect student no/password")),
+          const SnackBar(content: Text('Invalid student number or password')),
         );
       }
-    } else {
-      // Show an error message if the username or password is empty
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Please enter your username and password')),
-      );
     }
+  } else {
+    // Show an error message if the idno or password is empty
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Please enter your student number and password')),
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +111,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      left: 18.0, right: 18, top: 24, bottom: 24),
+                    left: 18.0,
+                    right: 18,
+                    top: 24,
+                    bottom: 24,
+                  ),
                   child: ListView(
                     shrinkWrap: true,
                     children: [
@@ -102,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.grey,
                           ),
                           label: Text(
-                            "Student no:",
+                            "Username:",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: AppColors.primaryColor,
@@ -122,9 +147,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           label: Text(
                             "Password:",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primaryColor,
-                                fontSize: 18),
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryColor,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ),
@@ -141,7 +167,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 70),
-                      // Login button
                       GestureDetector(
                         onTap: _login,
                         child: Container(

@@ -7,7 +7,10 @@ import '../screens/communication/consultation_booking_screen.dart';
 import '../screens/home/lecturer_home_screen.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
-  const BottomNavigationBarWidget({super.key});
+  final String userName;
+  final String idno;
+
+  const BottomNavigationBarWidget({super.key, required this.userName, required this.idno});
 
   @override
   _BottomNavigationBarWidgetState createState() =>
@@ -23,7 +26,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       elevation: 0,
       backgroundColor: Colors.white,
       unselectedItemColor: AppColors.primaryGradientColor[0],
-      selectedItemColor: Color(0xFF536976),
+      selectedItemColor: const Color(0xFF536976),
       selectedIconTheme: IconThemeData(color: AppColors.primaryColor),
       currentIndex: _selectedItemIndex,
       type: BottomNavigationBarType.fixed,
@@ -82,7 +85,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => HomeScreen(userName: widget.userName, idno: widget.idno)),
         );
         break;
       case 4:

@@ -1,23 +1,17 @@
-import 'package:classrapp/screens/auth/login_screen.dart';
-import 'package:classrapp/screens/auth/register_screen.dart';
-import 'package:classrapp/screens/home/home_screen.dart';
 import 'package:classrapp/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
-import 'screens/attendance/attendance_screen.dart';
-import 'screens/communication/chat_screen.dart';
-import 'screens/communication/consultation_booking_screen.dart';
-import 'screens/home/lecturer_home_screen.dart';
+import 'screens/auth/login_screen.dart';
 
-void main() async {
+Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final keyApplicationId = "My app id";
-  final keyClientKey = "My Client key";
-  final keyParseServerUrl = 'https://parseapi.back4app.com';
+  const keyApplicationId = "II7bnvFZAWAQs9MyawpfuSK0rttSNZ6DViXvEba8";
+  const keyClientKey = "oAGRUHJO27SLoouNBTURLSjx0if7B9I8uJAXC2Jc";
+  const keyParseServerUrl = 'https://parseapi.back4app.com';
 
   await Parse().initialize(keyApplicationId, keyParseServerUrl,
-      clientKey: keyClientKey, autoSendSessionId: true);
+      clientKey: keyClientKey, autoSendSessionId: true,debug: true);
   runApp(const MyApp());
 }
 
@@ -66,7 +60,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       //Change here to navigate to the desired screen
-      home: SplashScreen(),
+      home: const LoginScreen(),
     );
   }
 }

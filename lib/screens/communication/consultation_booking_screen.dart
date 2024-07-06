@@ -19,7 +19,7 @@ class _ConsultationBookingScreenState extends State<ConsultationBookingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      bottomNavigationBar: BottomNavigationBarWidget(),
+      bottomNavigationBar: BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

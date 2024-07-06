@@ -16,7 +16,7 @@ class _HomeScreenLecturerState extends State<HomeScreenLecturer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(),
+      bottomNavigationBar: BottomNavigationBarWidget(userName: 'YourUserName', idno: 'YourIdNo'),
       body: Stack(
         children: [
           Container(

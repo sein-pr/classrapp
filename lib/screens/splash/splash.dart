@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             SizedBox(height: 32),
-            SplashLoadingIndicator(),
+            const SplashLoadingIndicator(),
           ],
         ),
       ),
